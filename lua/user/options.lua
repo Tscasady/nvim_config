@@ -22,7 +22,7 @@ local options = {
 
   termguicolors = true,
 
-  cursorline = true, 		--hilights current line
+  cursorline = true, 		--highlights current line
   number = true, 		--enables line numbers
   relativenumber = true, 	--enables relative line numbers
   numberwidth = 4,              --size of numberline bar
@@ -36,6 +36,7 @@ local options = {
   sidescrolloff = 10,
 
   fileencoding = "utf-8",       -- the encoding written to a file
+  wrap = false
 }
 
 for k, v in pairs(options) do

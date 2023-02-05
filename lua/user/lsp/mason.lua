@@ -1,14 +1,15 @@
 local servers = {
 	"sumneko_lua",
-        "ruby_ls",
-        "rust_analyzer",
-	-- "cssls",
-        "html",
-	-- "tsserver",
+	"ruby_ls",
+	"solargraph",
+	"rust_analyzer",
+	"cssls",
+	"html",
+	"tsserver",
 	"pyright",
 	-- "bashls",
 	"jsonls",
-	-- "yamlls",
+	"yamlls",
 }
 
 local settings = {
@@ -40,7 +41,7 @@ local opts = {}
 for _, server in pairs(servers) do
 	opts = {
 		on_attach = require("user.lsp.handlers").on_attach,
-		capabilities = require("user.lsp.handlers").capabilities,
+		capabilities = require("user.lsp.handlers").testing,
 	}
 
 	server = vim.split(server, "@")[1]
