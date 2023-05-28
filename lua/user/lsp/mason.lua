@@ -1,5 +1,6 @@
 local servers = {
-	"sumneko_lua",
+	"lua_ls",
+	"prismals",
 	"ruby_ls",
 	"solargraph",
 	"rust_analyzer",
@@ -10,6 +11,9 @@ local servers = {
 	-- "bashls",
 	"jsonls",
 	"yamlls",
+        "svelte",
+        "gopls",
+        "elixirls"
 }
 
 local settings = {

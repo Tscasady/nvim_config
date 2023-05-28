@@ -55,11 +55,18 @@ return packer.startup(function(use)
   use { "hrsh7th/cmp-nvim-lsp" }
   use { "hrsh7th/cmp-nvim-lua" }
 
+  use {
+      'numToStr/Comment.nvim',
+      config = function()
+          require('Comment').setup()
+      end
+  }
   --Snippets
   use { "L3MON4D3/LuaSnip" } --snippet engine, consider autotrigger options in json file
 
 	-- Visual
   use { "folke/tokyonight.nvim" }
+  use { "rebelot/kanagawa.nvim" }
   use { "savq/melange-nvim" }
   use { "lunarvim/colorschemes" }
   use { "catppuccin/nvim", as = "catppuccin" }
@@ -71,6 +78,7 @@ return packer.startup(function(use)
   use { "nvim-lualine/lualine.nvim"}
   use { "tjdevries/colorbuddy.nvim" }
   use { "bkegley/gloombuddy" }
+  use { "mvllow/modes.nvim"}
 
   --Misc
   use { "tpope/vim-surround"} --'cs' to change surroundings 
@@ -92,10 +100,13 @@ return packer.startup(function(use)
     }
   }
 
+  use { "lewis6991/impatient.nvim" }
+  use { "monaqa/dial.nvim"}
   --Git
   use { "tpope/vim-fugitive"}
   use { "tpope/vim-rhubarb"}
   use { "lewis6991/gitsigns.nvim" }
+  use { "kdheepak/lazygit.nvim" }
 
   --LSP
   use { -- LSP Configuration & Plugins
@@ -115,9 +126,11 @@ return packer.startup(function(use)
   use { "jose-elias-alvarez/null-ls.nvim" }
   use { "RRethy/vim-illuminate" } --Highlights identical keywords in file, idk if I like it.
   use { "rafamadriz/friendly-snippets" }
+  use { "prisma/vim-prisma" }
 
   -- Telescope
   use { "nvim-telescope/telescope.nvim" }
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
   -- Treesitter
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
@@ -136,13 +149,34 @@ return packer.startup(function(use)
 
   --Rails
   use { "tpope/vim-rails" }
-  
 
+  --Local
+  use {"/Users/thomascasady/neovim_plugins/pom.nvim"}
+  
+  --DAP
+  use {"mfussenegger/nvim-dap"}
+  use {"rcarriga/nvim-dap-ui"}
+  use { "mxsdev/nvim-dap-vscode-js", requires = {"mfussenegger/nvim-dap"} }
+  use {
+    "microsoft/vscode-js-debug",
+    opt = true,
+    run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out" 
+  }
+
+  --Rust
+   use {
+      'saecki/crates.nvim',
+      tag = 'v0.3.0',
+      requires = { 'nvim-lua/plenary.nvim' },
+      config = function()
+          require('crates').setup()
+      end
+    }
   --[[
-  use { "numToStr/Comment.nvim", }
   use { "JoosepAlviste/nvim-ts-context-commentstring", commit = "4d3a68c41a53add8804f471fcc49bb398fe8de08" }
+  
+  this could be useful for railsroutescmp plugin
   use { "ahmedkhalf/project.nvim", commit = "628de7e433dd503e782831fe150bb750e56e55d6" }
-  use { "lewis6991/impatient.nvim", commit = "b842e16ecc1a700f62adb9802f8355b99b52a5a6" }
   use { "goolord/alpha-nvim", commit = "0bb6fc0646bcd1cdb4639737a1cee8d6e08bcc31" }
   use {"folke/which-key.nvim"}
 

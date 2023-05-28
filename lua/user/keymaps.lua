@@ -11,17 +11,28 @@ vim.g.maplocalleader = " "
 
 --Toggle Options
 keymap("n", "<leader>ww", ":set wrap!<CR>", opts)
+
+--Apps
+--cant use zsh commands from command line
+keymap("n", "<leader>go", ":!web_search google ", opts)
+
 --Normal Mode
 --Window Nav
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<leader>T", "<C-w>T", opts)
+
+--Resize windows
+--keymap("n", "<leader>F", "<C-w><", opts)
+--keymap("n", "<leader>J", "<C-w>>", opts)
 
 --Nvim Tree
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 
---Resize windows
+--LazyGit
+-- keymap("")
 
 --Navigate Buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
