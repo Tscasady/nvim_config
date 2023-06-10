@@ -78,9 +78,9 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 --Format
-vim.keymap.set('n', '<leader>for', ":Format<CR>", opts)
+--vim.api.keymap.set('n', '<leader>for', ":Format<CR>", opts)
 
 --ToggleTerm
 
 --Misc
-vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+--vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")

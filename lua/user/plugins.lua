@@ -134,7 +134,7 @@ return packer.startup(function(use)
 
   -- Treesitter
   use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
-  use { "p00f/nvim-ts-rainbow" } --no longer maintained, remove if it causes issues
+  use { "mrjones2014/nvim-ts-rainbow" }
   use { "RRethy/nvim-treesitter-endwise" } --integrates tpope endwise with treesitter
   use { "lukas-reineke/indent-blankline.nvim" }
 

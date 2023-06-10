@@ -5,7 +5,7 @@ end
 
 configs.setup({
 
-        ensure_installed = { "bash", "svelte", "c", "javascript", "json", "lua", "python", "typescript", "tsx", "css", "rust", "ruby", "java", "yaml", "markdown", "markdown_inline", "vim", "help" },
+        ensure_installed = { "bash", "svelte", "c", "javascript", "json", "lua", "python", "typescript", "tsx", "css", "rust", "ruby", "java", "yaml", "markdown", "markdown_inline", "vim", "vimdoc" },
 	ignore_install = { "phpdoc" }, -- List of parsers to ignore installing
 	highlight = {
 		enable = true, -- false will disable the whole extension
