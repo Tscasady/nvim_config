@@ -81,7 +81,7 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 --Format
--- vim.keymap.set('n', '<leader>for', ":Format<CR>", opts)
+vim.keymap.set('n', '<leader>for', ":Format<CR>", opts)
 
 --ToggleTerm
 
