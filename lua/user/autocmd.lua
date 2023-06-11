@@ -23,6 +23,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format{ async = true}]]
+
 -- -- close some filetypes with <q>
 -- vim.api.nvim_create_autocmd("FileType", {
 --   group = augroup("close_with_q"),
