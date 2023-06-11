@@ -25,7 +25,10 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<leader>T", "<C-w>T", opts)
 
 --Resize windows
---keymap("n", "<leader>F", "<C-w><", opts)
+keymap("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+keymap("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+keymap("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+keymap("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })--keymap("n", "<leader>F", "<C-w><", opts)
 --keymap("n", "<leader>J", "<C-w>>", opts)
 
 --Nvim Tree
@@ -84,3 +87,9 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 
 --Misc
 --vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+
+--TODO: comments
+vim.keymap.set("n", "<leader>to", function()
+  require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+

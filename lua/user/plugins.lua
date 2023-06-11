@@ -160,7 +160,7 @@ return packer.startup(function(use)
   use {
     "microsoft/vscode-js-debug",
     opt = true,
-    run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out" 
+    run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
   }
 
   --Rust
@@ -172,13 +172,19 @@ return packer.startup(function(use)
           require('crates').setup()
       end
     }
+
+  --TODOs
+  use { "folke/todo-comments.nvim", requires = { "nvim-lua/plenary.nvim" } }
+
+  --Trouble/quickfix
+  use { "folke/trouble.nvim",
+         requires = { "nvim-tree/nvim-web-devicons" } }
   --[[
   use { "JoosepAlviste/nvim-ts-context-commentstring", commit = "4d3a68c41a53add8804f471fcc49bb398fe8de08" }
   
   this could be useful for railsroutescmp plugin
   use { "ahmedkhalf/project.nvim", commit = "628de7e433dd503e782831fe150bb750e56e55d6" }
   use { "goolord/alpha-nvim", commit = "0bb6fc0646bcd1cdb4639737a1cee8d6e08bcc31" }
-  use {"folke/which-key.nvim"}
 
   --]]
 	-- Automatically set up your configuration after cloning packer.nvim
