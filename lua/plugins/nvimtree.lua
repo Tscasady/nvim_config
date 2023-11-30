@@ -15,7 +15,16 @@ end
   vim.keymap.set('n', '[',     api.tree.change_root_to_node,          opts('CD'))
 end
 
--- pass to setup along with your other options
-require("nvim-tree").setup {
-  on_attach = my_on_attach,
+return {
+  "nvim-tree/nvim-tree.lua",
+  version = "*",
+  lazy = false,
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+  },
+  config = function()
+    require("nvim-tree").setup {
+      on_attach = my_on_attach
+    }
+  end,
 }

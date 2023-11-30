@@ -1,24 +1,53 @@
+vim.loader.enable()
+
 -- disable netrw at the start
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require 'user.options'
-require 'user.keymaps'
-require 'user.plugins'
-require 'user.colorscheme'
-require 'user.cmp'
-require 'user.lsp'
-require 'user.telescope'
-require 'user.treesitter'
-require 'user.autopair'
-require 'user.gitsigns'
-require 'user.nvim-tree'
-require 'user.bufferline'
-require 'user.lualine'
-require 'user.toggleterm'
-require 'user.refactor'
-require 'user.modecolors'
-require 'user.globals'
-require 'user.dap_js'
-require 'user.autocmd'
-require 'user.todo'
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", 
+    lazypath,
+  })
+end
+
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup("plugins", {
+  performance = {
+		cache = {
+			enabled = true,
+		},
+		rtp = {
+			disabled_plugins = {
+				-- "netrw",
+				"2html_plugin",
+				"getscript",
+				"getscriptPlugin",
+				"gzip",
+				"logipat",
+				"tohtml",
+				"tutor",
+				"tar",
+				"tarPlugin",
+				"rrhelper",
+				"vimball",
+				"vimballPlugin",
+			},
+		},
+	},
+})
+
+require('options')
+require('keymaps')
+require("autocmd")
+
+vim.cmd.colorscheme("rose-pine")

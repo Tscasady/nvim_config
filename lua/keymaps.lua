@@ -11,6 +11,9 @@ vim.g.maplocalleader = " "
 
 --Toggle Options
 keymap("n", "<leader>ww", ":set wrap!<CR>", opts)
+-- Remap for dealing with word wrap
+--vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+--vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 --Apps
 --cant use zsh commands from command line
@@ -25,6 +28,7 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<leader>T", "<C-w>T", opts)
 
 --Resize windows
+--TODO: Replace with hydra 
 keymap("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 keymap("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 keymap("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
@@ -51,6 +55,12 @@ keymap("v", "<leader>y", "\" + y", opts)
 --Keeps cursor centered while searching
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "NzzzV", opts)
+
+-- Diagnostic keymaps
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+--vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 --Visual Mode
 -- Move text up and down in Visual

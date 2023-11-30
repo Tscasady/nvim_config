@@ -3,8 +3,8 @@
 --math.randomseed(os.time())
 
 --local colorscheme = colortable[ math.random(#colortable) ]
-require('rose-pine').setup({
-	--- @usage 'main' | 'moon'
+return {
+	'rose-pine/neovim',
 	dark_variant = 'moon',
 	bold_vert_split = false,
 	dim_nc_background = false,
@@ -12,7 +12,6 @@ require('rose-pine').setup({
 	disable_float_background = false,
 	disable_italics = true,
 
-	--- @usage string hex value or named color from rosepinetheme.com/palette
 	groups = {
 		background = 'base',
 		panel = 'surface',
@@ -34,22 +33,9 @@ require('rose-pine').setup({
 			h5 = 'pine',
 			h6 = 'foam',
 		}
-		-- or set all headings at once
-		-- headings = 'subtle'
 	},
 
-	-- Change specific vim highlight groups
 	highlight_groups = {
 		ColorColumn = { bg = 'rose' }
 	}
-})
-
--- local colorscheme = "rose-pine" 
-local colorscheme = "kanagawa" 
-print("Current colorscheme: " .. colorscheme)
-
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-  vim.notify("colorscheme" .. colorscheme .. " not found.")
-  return
-end
+}
