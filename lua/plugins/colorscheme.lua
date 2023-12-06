@@ -4,6 +4,7 @@
 
 --local colorscheme = colortable[ math.random(#colortable) ]
 return {
+	"rebelot/kanagawa.nvim",
 	'rose-pine/neovim',
 	dark_variant = 'moon',
 	bold_vert_split = false,

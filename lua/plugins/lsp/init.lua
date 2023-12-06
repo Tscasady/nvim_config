@@ -133,69 +133,69 @@ return {
 			setup_lspconfig()
 		end,
 	},
-	{
-		"dnlhc/glance.nvim",
-		cmd = "Glance",
-		keys = {
-			{ "gpd", "<cmd>Glance definitions<CR>" },
-			{ "gpr", "<cmd>Glance references<CR>" },
-			{ "gpt", "<cmd>Glance type_definitions<CR>" },
-			{ "gpi", "<cmd>Glance implementations<CR>" },
-		},
-		opts = function()
-			local actions = require("glance").actions
-			return {
-				theme = { -- This feature might not work properly in nvim-0.7.2
-					enable = true, -- Will generate colors for the plugin based on your current colorscheme
-					mode = "brighten", -- 'brighten'|'darken'|'auto', 'auto' will set mode based on the brightness of your colorscheme
-				},
-				list = {
-					position = "left", -- Position of the list window 'left'|'right'
-					width = 0.33, -- 33% width relative to the active window, min 0.1, max 0.5
-				},
-				detached = true,
-				folds = {
-					fold_closed = "󰅂", -- 󰅂 
-					fold_open = "󰅀", -- 󰅀 
-					folded = true,
-				},
-				border = {
-					enable = true, -- Show window borders. Only horizontal borders allowed
-					top_char = "―",
-					bottom_char = "―",
-				},
-				hooks = {
-					---@diagnostic disable-next-line: unused-local
-					before_open = function(results, open, jump, method)
-						local uri = vim.uri_from_bufnr(0)
-						if #results == 1 then
-							local target_uri = results[1].uri or results[1].targetUri
-
-							if target_uri == uri then
-								jump(results[1])
-							else
-								open(results)
-							end
-						else
-							open(results)
-						end
-					end,
-				},
-				mappings = {
-					list = {
-						["<C-u>"] = actions.preview_scroll_win(5),
-						["<C-d>"] = actions.preview_scroll_win(-5),
-						["sg"] = actions.jump_vsplit,
-						["sv"] = actions.jump_split,
-						["st"] = actions.jump_tab,
-						["p"] = actions.enter_win("preview"),
-					},
-					preview = {
-						["q"] = actions.close,
-						["p"] = actions.enter_win("list"),
-					},
-				},
-			}
-		end,
-	},
+	-- {
+	-- 	"dnlhc/glance.nvim",
+	-- 	cmd = "Glance",
+	-- 	keys = {
+	-- 		{ "gpd", "<cmd>Glance definitions<CR>" },
+	-- 		{ "gpr", "<cmd>Glance references<CR>" },
+	-- 		{ "gpt", "<cmd>Glance type_definitions<CR>" },
+	-- 		{ "gpi", "<cmd>Glance implementations<CR>" },
+	-- 	},
+	-- 	opts = function()
+	-- 		local actions = require("glance").actions
+	-- 		return {
+	-- 			theme = { -- This feature might not work properly in nvim-0.7.2
+	-- 				enable = true, -- Will generate colors for the plugin based on your current colorscheme
+	-- 				mode = "brighten", -- 'brighten'|'darken'|'auto', 'auto' will set mode based on the brightness of your colorscheme
+	-- 			},
+	-- 			list = {
+	-- 				position = "left", -- Position of the list window 'left'|'right'
+	-- 				width = 0.33, -- 33% width relative to the active window, min 0.1, max 0.5
+	-- 			},
+	-- 			detached = true,
+	-- 			folds = {
+	-- 				fold_closed = "󰅂", -- 󰅂 
+	-- 				fold_open = "󰅀", -- 󰅀 
+	-- 				folded = true,
+	-- 			},
+	-- 			border = {
+	-- 				enable = true, -- Show window borders. Only horizontal borders allowed
+	-- 				top_char = "―",
+	-- 				bottom_char = "―",
+	-- 			},
+	-- 			hooks = {
+	-- 				---@diagnostic disable-next-line: unused-local
+	-- 				before_open = function(results, open, jump, method)
+	-- 					local uri = vim.uri_from_bufnr(0)
+	-- 					if #results == 1 then
+	-- 						local target_uri = results[1].uri or results[1].targetUri
+	--
+	-- 						if target_uri == uri then
+	-- 							jump(results[1])
+	-- 						else
+	-- 							open(results)
+	-- 						end
+	-- 					else
+	-- 						open(results)
+	-- 					end
+	-- 				end,
+	-- 			},
+	-- 			mappings = {
+	-- 				list = {
+	-- 					["<C-u>"] = actions.preview_scroll_win(5),
+	-- 					["<C-d>"] = actions.preview_scroll_win(-5),
+	-- 					["sg"] = actions.jump_vsplit,
+	-- 					["sv"] = actions.jump_split,
+	-- 					["st"] = actions.jump_tab,
+	-- 					["p"] = actions.enter_win("preview"),
+	-- 				},
+	-- 				preview = {
+	-- 					["q"] = actions.close,
+	-- 					["p"] = actions.enter_win("list"),
+	-- 				},
+	-- 			},
+	-- 		}
+	-- 	end,
+	-- },
 }

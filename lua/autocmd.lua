@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format{ async = true}]]
+-- vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format{ async = false}]]
 
 -- local init_group_id = vim.api.nvim_create_augroup("InitGroup", { clear = true })
 -- This lets one delete entries from a quickfix list with `dd`

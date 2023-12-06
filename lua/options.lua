@@ -52,7 +52,6 @@ local options = {
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
-
 vim.opt.iskeyword:append("-")
-
+vim.g.format_on_save = false
 vim.cmd([[autocmd FileType * setlocal formatoptions-=ro]])
