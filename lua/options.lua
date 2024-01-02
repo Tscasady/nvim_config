@@ -47,7 +47,15 @@ local options = {
 	--                    + 'n'    -- autoformat numbered list
 	--                    - '2'    -- I am a programmer and not a writer
 	--                    + 'j'    -- Join comments smartly
+	-- shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+	-- shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+	-- shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+	-- shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+	-- shellquote = "",
+	-- shellxquote = "",
 }
+
+
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
@@ -55,3 +63,16 @@ end
 vim.opt.iskeyword:append("-")
 vim.g.format_on_save = false
 vim.cmd([[autocmd FileType * setlocal formatoptions-=ro]])
+
+vim.g.diagnostics_active = true
+function _G.toggle_diagnostics()
+  if vim.g.diagnostics_active then
+    vim.g.diagnostics_active = false
+    vim.diagnostic.hide()
+  else
+    vim.g.diagnostics_active = true
+    vim.diagnostic.show()
+  end
+end
+
+vim.api.nvim_set_keymap('n', '<leader>tt', ':call v:lua.toggle_diagnostics()<CR>',  {noremap = true, silent = true})

@@ -43,8 +43,8 @@ Module.setup = function(capabilities, common_on_attach)
 					enable = false,
 				},
 				diagnostics = {
-					-- Get the language server to recognize the `vim` and `hs` (hammerspoon) global
-					globals = { "vim", "hs" },
+					-- Get the language server to recognize the `vim` global
+					globals = { "vim" },
 				},
 				completion = {
 					callSnippet = "Replace",

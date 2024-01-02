@@ -1,4 +1,5 @@
 local Module = {}
+
 Module.dap_adapter = function()
 	local extension_path = vim.env.RUST_DAP
 
@@ -65,7 +66,30 @@ Module.setup = function(capabilities, common_on_attach)
 				local rt = require("rust-tools")
 				vim.keymap.set("n", "gh", rt.hover_actions.hover_actions, { buffer = bufnr })
 				vim.keymap.set("n", "<leader>ca", rt.code_action_group.code_action_group, { buffer = bufnr })
-			end,
+				vim.api.nvim_set_keymap('n', '<leader>m', [[:lua ToggleMutability()<CR>]], { noremap = true, silent = true })
+
+function ToggleMutability()
+   if startsWithLet then
+        vim.fn.setline('.', line:gsub('^%s*let', 'let mut'))
+    end
+
+
+
+
+
+    -- Get the current line
+    local line = vim.fn.getline('.')
+    
+    -- Check if the line starts with 'let'
+    if line:match('^%s*let') then
+        -- Print 'true'
+        print('true')
+    else
+        -- Print 'false'
+        print('false')
+end
+    end
+end,
 		},
 	}
 

@@ -10,8 +10,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 --Toggle Options
-keymap("n", "<leader>ww", ":set wrap!<CR>", opts)
 -- Remap for dealing with word wrap
+keymap("n", "<leader>ww", ":set wrap!<CR>", opts)
 --vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 --vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
