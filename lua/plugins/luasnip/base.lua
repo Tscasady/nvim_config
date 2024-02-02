@@ -379,36 +379,6 @@ ls.add_snippets("markdown", {
 	),
 }, { key = "markdown" })
 
--- ls.add_snippets("norg", {
--- 	s("norg code", { -- neorg tag
--- 		t({ "@code", "" }),
--- 		-- insert code, text, " ", insert lang
--- 		i(1, "code goes here.."),
--- 		t({ "", "@end" }),
--- 	}),
--- 	s("neorg link curly", {
--- 		t("{"),
--- 		i(1, "name"),
--- 		t("}["),
--- 		i(2, "link"),
--- 		t("]"),
--- 	}),
--- 	s("neorg link paren", {
--- 		t("("),
--- 		i(1, "name"),
--- 		t(")["),
--- 		i(2, "link"),
--- 		t("]"),
--- 	}),
--- 	s("neorg link square", {
--- 		t("["),
--- 		i(1, "name"),
--- 		t("]["),
--- 		i(2, "link"),
--- 		t("]"),
--- 	}),
--- })
-
 require("luasnip.loaders.from_vscode").lazy_load({
 	paths = { "~/AppData/Local/nvim/snippets" },
 })

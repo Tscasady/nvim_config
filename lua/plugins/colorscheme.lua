@@ -6,6 +6,7 @@
 return {
 	"rebelot/kanagawa.nvim",
 	'rose-pine/neovim',
+	"folke/tokyonight.nvim",
 	dark_variant = 'moon',
 	bold_vert_split = false,
 	dim_nc_background = false,

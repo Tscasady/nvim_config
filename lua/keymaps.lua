@@ -12,8 +12,9 @@ vim.g.maplocalleader = " "
 --Toggle Options
 -- Remap for dealing with word wrap
 keymap("n", "<leader>ww", ":set wrap!<CR>", opts)
---vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
---vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- lets you move the cursor by line on screen vs line in file
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 --Apps
 --cant use zsh commands from command line

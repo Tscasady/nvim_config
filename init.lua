@@ -7,7 +7,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-if print(vim.loop.os_uname().sysname) == "Windows_NT" then
+if vim.loop.os_uname().sysname == "Windows_NT" then
   local powershell_options = {
     shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
     shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
@@ -67,4 +67,5 @@ require('options')
 require('keymaps')
 require("autocmd")
 
-vim.cmd.colorscheme("rose-pine-moon")
+
+vim.cmd.colorscheme("tokyonight-storm")
