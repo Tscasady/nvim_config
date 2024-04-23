@@ -1,3 +1,3 @@
 return {
-	'pocco81/auto-save.nvim',
+	"pocco81/auto-save.nvim",
 }

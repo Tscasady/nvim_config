@@ -1,125 +1,84 @@
-local function setup_lspconfig()
-	require("fidget").setup()
-	-- local servers = {
-	-- 	"rust_analyzer",
-	-- 	"jsonls",
-	-- 	"yamlls",
-	-- 	"prosemd_lsp",
-	-- 	"marksman",
-	-- 	"rnix",
-	-- 	"bashls",
-	-- 	"elixirls",
-	-- 	"lua_ls",
-	-- 	"tsserver",
-	-- 	"eslint",
-	--  "sql_formatter",
-	-- }
-
-	require("mason-lspconfig").setup({
-		-- ensure_installed = servers,
-		-- ensure_installed = vim.tbl_keys(servers),
-	})
-
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-		vim.lsp.handlers.signature_help,
-		{ border = "rounded", close_events = { "CursorMoved", "BufHidden" } }
-	)
-
-	local common_on_attach = require("plugins.lsp.shared").common_on_attach
-	local capabilities = require("plugins.lsp.shared").capabilities()
-
-	if vim.fn.filereadable("/etc/NIXOS") == 1 then
-		require("plugins.lsp.lua_ls").setup(capabilities, common_on_attach)
-		require("plugins.lsp.rust_tools").setup(capabilities, common_on_attach)
-		require("plugins.lsp.eslint").setup(capabilities, common_on_attach)
-		require("plugins.lsp.tsserver").setup(capabilities, common_on_attach)
-
-		local lspconfig = require("lsp")
-		lspconfig.solargraph.setup({
-			on_attach = common_on_attach,
-			capabilities = capabilities,
-		})
-		lspconfig.nil_ls.setup({
-			on_attach = function(client, bufnr)
-				client.server_capabilities.documentFormattingProvider = false
-				common_on_attach(client, bufnr)
-			end,
-			capabilities = capabilities,
-		})
-		lspconfig.gdscript.setup({
-			on_attach = common_on_attach,
-			capabilities = capabilities,
-		})
-
-		lspconfig.marksman.setup({
-			on_attach = common_on_attach,
-			capabilities = capabilities,
-		})
-	else
-		require("mason-lspconfig").setup_handlers({
-			-- The first entry (without a key) will be the default handler
-			-- and will be called for each installed server that doesn't have
-			-- a dedicated handler.
-			function(server_name) -- default handler (optional)
-				require("lspconfig")[server_name].setup({
-					on_attach = common_on_attach,
-					capabilities = capabilities,
-				})
-			end,
-			["lua_ls"] = function()
-				require("plugins.lsp.lua_ls").setup(capabilities, common_on_attach)
-			end,
-			["tsserver"] = function()
-				require("plugins.lsp.tsserver").setup(capabilities, common_on_attach)
-			end,
-			["eslint"] = function()
-				require("plugins.lsp.eslint").setup(capabilities, common_on_attach)
-			end,
-			["rust_analyzer"] = function()
-				require("plugins.lsp.rust_tools").setup(capabilities, common_on_attach)
-			end,
-		})
-	end
-end
-
 return {
-	{
+	"neovim/nvim-lspconfig",
+	dependencies = {
 		"williamboman/mason.nvim",
-		cmd = { "Mason", "MasonInstall", "MasonLog", "MasonUninstall", "MasonUninstallAll" },
-		config = function()
-			require("mason").setup()
-		end,
+		"williamboman/mason-lspconfig.nvim",
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		{ "j-hui/fidget.nvim", opts = {} },
+		{ "folke/neodev.nvim", opts = {} },
 	},
-	{
-		"neovim/nvim-lspconfig",
-		event = "BufReadPre",
-		dependencies = {
-			{
-				"SmiteshP/nvim-navbuddy",
-				dependencies = {
-					"SmiteshP/nvim-navic",
-					"MunifTanjim/nui.nvim",
+	config = function()
+		vim.api.nvim_create_autocmd("LspAttach", {
+			group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+			callback = function(event)
+				local map = function(keys, func, desc)
+					vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+				end
+
+				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+				map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+				map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+				map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+				map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+				map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+				map("K", vim.lsp.buf.hover, "Hover Documentation")
+				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+				local client = vim.lsp.get_client_by_id(event.data.client_id)
+				if client and client.server_capabilities.documentHighlightProvider then
+					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+						buffer = event.buf,
+						callback = vim.lsp.buf.document_highlight,
+					})
+
+					vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+						buffer = event.buf,
+						callback = vim.lsp.buf.clear_references,
+					})
+				end
+			end,
+		})
+
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+		capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
+		local servers = {
+			lua_ls = {
+				settings = {
+					Lua = {
+						completion = {
+							callSnippet = "Replace",
+						},
+						diagnostics = {
+							globals = { "vim" },
+							disable = { "missing-fields" },
+						},
+					},
 				},
-				opts = { lsp = { auto_attach = true } },
 			},
-			{
-				"SmiteshP/nvim-navic",
-				requires = "neovim/nvim-lspconfig",
+		}
+
+		require("mason").setup()
+
+		local ensure_installed = vim.tbl_keys(servers or {})
+		vim.list_extend(ensure_installed, {
+			"stylua", -- Used to format Lua code
+		})
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+		require("mason-lspconfig").setup({
+			handlers = {
+				function(server_name)
+					local server = servers[server_name] or {}
+					-- This handles overriding only values explicitly passed
+					-- by the server configuration above. Useful when disabling
+					-- certain features of an LSP (for example, turning off formatting for tsserver)
+					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+					require("lspconfig")[server_name].setup(server)
+				end,
 			},
-			{ "weilbith/nvim-code-action-menu", cmd = "CodeActionMenu" },
-			"j-hui/fidget.nvim",
-			"kosayoda/nvim-lightbulb",
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-			{ "dodomorandi/rust-tools.nvim", dependencies = { "mfussenegger/nvim-dap" } },
-			{
-				"folke/neodev.nvim",
-				ft = "lua",
-			},
-		},
-		config = function()
-			setup_lspconfig()
-		end,
-	},
+		})
+	end,
 }

@@ -3,7 +3,6 @@ return {
 	dependencies = {
 		"hrsh7th/nvim-cmp",
 	},
-	-- event = "InsertEnter",
 	config = function()
 		local autopairs = require("nvim-autopairs")
 		autopairs.setup({
@@ -26,4 +25,3 @@ return {
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 	end,
 }
-
