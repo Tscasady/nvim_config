@@ -37,7 +37,8 @@ keymap("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase windo
 --keymap("n", "<leader>J", "<C-w>>", opts)
 
 --Nvim Tree
-keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
+-- keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
+keymap("n", "<leader>e", ":Oil<cr>", opts)
 
 --LazyGit
 -- keymap("")
