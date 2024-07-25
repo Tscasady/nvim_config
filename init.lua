@@ -92,6 +92,7 @@ require("lazy").setup({
 require("options")
 require("keymaps")
 require("autocmds")
+require("terminal")
 
 
 -- vim.cmd.colorscheme("tokyonight-storm")

@@ -58,4 +58,5 @@ return {
 			},
 		},
 	},
+	{"moll/vim-bbye"}
 }
